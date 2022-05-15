@@ -1,0 +1,6 @@
+name: 'Build all sub directory for CodeReview Repo'
+description: 'Build all sub directory for CodeReview Repo'
+
+runs:
+  using: 'node16'
+  main: 'dist/index.js'

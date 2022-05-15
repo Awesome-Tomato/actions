@@ -1,0 +1,17 @@
+{
+  "name": "build-all-sub-directory",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "npx webpack --mode=production"
+  },
+  "engines": {
+    "node": "^16.14.2"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
+  }
+}
