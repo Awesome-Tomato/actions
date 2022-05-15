@@ -6,8 +6,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps: 
+      - uses: actions/checkout@v3
+
       - name: Merge release into main
-        uses: actions/checkout@v3
         run: git merge main
 
       - uses: actions/setup-node@v3
