@@ -9,7 +9,9 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Merge release into main
-        run: git merge main
+        run: |
+          git switch release
+          git merge main
 
       - uses: actions/setup-node@v3
         with: 
@@ -23,7 +25,7 @@ jobs:
       
       - name: Deploy output
         run: |
-          git config user.name 'MaeDol'
+          git config user.name 'MaetDol'
           git config user.email 'rndka9@gmail.com'
           git add ./dist/* -f # gitignore 파일 때문에 무시되는 파일 -f 로 추가 
           git commit -m 'Github workflow build result'
