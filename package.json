@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "build": "npx webpack --mode=production",
-    "test": "npx jest"
+    "test": "npx jest",
+    "test:watch": "npx jest --watch"
   },
   "engines": {
     "node": "^16.14.2"
@@ -12,7 +13,10 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/core": "^7.17.10",
+    "@babel/plugin-transform-modules-commonjs": "^7.17.9",
     "@types/jest": "^27.5.1",
+    "babel-jest": "^28.1.0",
     "jest": "^28.1.0",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2"
