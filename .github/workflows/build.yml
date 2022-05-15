@@ -1,0 +1,30 @@
+on: 
+  push:
+    branchs: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Merge release into main
+      - uses: actions/checkout@v3
+        run: git merge main
+
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 16.x
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build repository
+        run: npm run build
+      
+      - name: Deploy output
+        run: |
+          git config user.name 'MaeDol'
+          git config user.email 'rndka9@gmail.com'
+          git add ./dist/*
+          git commit -m 'Github workflow build result'
+          git push
+
