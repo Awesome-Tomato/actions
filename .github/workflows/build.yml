@@ -24,7 +24,7 @@ jobs:
         run: |
           git config user.name 'MaeDol'
           git config user.email 'rndka9@gmail.com'
-          git add ./dist/*
+          git add ./dist/* -f # gitignore 파일 때문에 무시되는 파일 -f 로 추가 
           git commit -m 'Github workflow build result'
           git push
 
