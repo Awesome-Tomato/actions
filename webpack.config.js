@@ -7,5 +7,5 @@ module.exports = {
   },
 
   target: 'node',
-  devtool: false,
+  devtool: 'inline-source-map',
 };
