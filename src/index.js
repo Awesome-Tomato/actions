@@ -2,9 +2,9 @@ import path from 'node:path';
 import { pathIsDirectory, readDirectoriesAsFullPath } from './libs/fileSystem';
 import {
   hasPackageJson,
-  moveBuildOutputAsImplementDirectory,
+  moveBuildOutputIntoImplementDirectory,
   runBuildCommandAt,
-} from './libs/projectBuilder';
+} from './libs/projectExplorer';
 
 run();
 
@@ -18,6 +18,6 @@ function run() {
     projectImplements
       .filter(hasPackageJson)
       .map(runBuildCommandAt)
-      .forEach(moveBuildOutputAsImplementDirectory);
+      .forEach(moveBuildOutputIntoImplementDirectory);
   });
 }
