@@ -19,13 +19,18 @@ function run() {
 
   // TODO: 각 프로젝트 구현폴더를 돌때 실행하는 코드 별도 함수로 분리하기
   projectPaths.forEach((projectPath) => {
+    const { readme, fullpath: readmePath } = getReadmeAt(projectPath);
+    if (!readmePath) return;
+
     const projectImplements = readDirectoriesAsFullPath(projectPath);
     projectImplements
       .filter(hasPackageJson)
       .map(runBuildCommandAt)
       .forEach(moveBuildOutputIntoImplementDirectory);
 
-    const implementDirectoryNames = projectImplements.map(path.basename);
+    const implementDirectoryNames = projectImplements.map((fullpath) =>
+      path.basename(fullpath)
+    );
     const projectName = path.basename(projectPath);
     const PROJECT_BASE_URL = `https://awesome-tomato.github.io/CodeReview/${projectName}/`;
     const deployList =
@@ -33,8 +38,8 @@ function run() {
         .map((name) => `- [${name}](${PROJECT_BASE_URL}/${name}/index.html)`)
         .join('\n') + '\n';
 
-    const { readme, fullpath } = getReadmeAt(projectPath);
+    console.log(implementDirectoryNames);
     const deployListSelectRegex = /(?<=## 배포링크\n\n)((- [^\n]+\n)*)/;
-    writeFile(fullpath, readme.replace(deployListSelectRegex, deployList));
+    writeFile(readmePath, readme.replace(deployListSelectRegex, deployList));
   });
 }
