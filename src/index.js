@@ -1,6 +1,11 @@
 import path from 'node:path';
-import { pathIsDirectory, readDirectoriesAsFullPath } from './libs/fileSystem';
 import {
+  pathIsDirectory,
+  readDirectoriesAsFullPath,
+  writeFile,
+} from './libs/fileSystem';
+import {
+  getReadmeAt,
   hasPackageJson,
   moveBuildOutputIntoImplementDirectory,
   runBuildCommandAt,
@@ -19,5 +24,17 @@ function run() {
       .filter(hasPackageJson)
       .map(runBuildCommandAt)
       .forEach(moveBuildOutputIntoImplementDirectory);
+
+    const implementDirectoryNames = projectImplements.map(path.basename);
+    const projectName = path.basename(projectPath);
+    const PROJECT_BASE_URL = `https://awesome-tomato.github.io/CodeReview/${projectName}/`;
+    const deployList =
+      implementDirectoryNames
+        .map((name) => `- [${name}](${PROJECT_BASE_URL}/${name}/index.html)`)
+        .join('\n') + '\n';
+
+    const { readme, fullpath } = getReadmeAt(projectPath);
+    const deployListSelectRegex = /(?<=## 배포링크\n\n)((- [^\n]+\n)*)/;
+    writeFile(fullpath, readme.replace(deployListSelectRegex, deployList));
   });
 }
