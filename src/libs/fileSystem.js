@@ -36,3 +36,5 @@ export function createDirectory(absolutePath) {
     fs.mkdirSync(absolutePath);
   } catch (e) {}
 }
+
+export function writeFile() {}
