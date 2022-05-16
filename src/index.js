@@ -5,8 +5,8 @@ import {
   writeFile,
 } from './libs/fileSystem';
 import {
+  getPackageJson,
   getReadmeAt,
-  hasPackageJson,
   moveBuildOutputIntoImplementDirectory,
   runBuildCommandAt,
 } from './libs/projectExplorer';
@@ -18,19 +18,31 @@ function run() {
   const projectPaths = readDirectoriesAsFullPath(root).filter(pathIsDirectory);
 
   // TODO: 각 프로젝트 구현폴더를 돌때 실행하는 코드 별도 함수로 분리하기
+  // TODO: 리팩토링이 꼭 필요함 - 배포해야하는지 확인하는 부분이 정리가 필요함
   projectPaths.forEach((projectPath) => {
     const { readme, fullpath: readmePath } = getReadmeAt(projectPath);
     if (!readmePath) return;
 
     const projectImplements = readDirectoriesAsFullPath(projectPath);
-    projectImplements
-      .filter(hasPackageJson)
-      .map(runBuildCommandAt)
-      .forEach(moveBuildOutputIntoImplementDirectory);
+    const implementItems = projectImplements.map((fullpath) => ({
+      fullpath,
+      packageJson: getPackageJson(fullpath),
+    }));
 
-    const implementDirectoryNames = projectImplements.map((fullpath) =>
-      path.basename(fullpath)
-    );
+    implementItems
+      .filter((implement) => implement.packageJson)
+      .map((implement) => {
+        runBuildCommandAt(implement.fullpath);
+        return implement;
+      })
+      .filter((implement) => implement.packageJson.deploy !== false)
+      .forEach((implement) =>
+        moveBuildOutputIntoImplementDirectory(implement.fullpath)
+      );
+
+    const implementDirectoryNames = implementItems
+      .filter(({ packageJson }) => packageJson?.deploy !== false)
+      .map((implement) => path.basename(implement.fullpath));
     const projectName = path.basename(projectPath);
     const PROJECT_BASE_URL = `https://awesome-tomato.github.io/CodeReview/${projectName}/`;
     const deployList =
