@@ -16,4 +16,14 @@ export function runBuildCommandAt(projectPath) {
 
 export function moveBuildOutputIntoImplementDirectory() {}
 
-export function getReadmeAt() {}
+export function getReadmeAt(projectPath) {
+  const fullpath = path.resolve(projectPath, 'readme.md');
+  let readme;
+  try {
+    readme = fs.readFileSync(fullpath).toString();
+  } catch (e) {
+    return {};
+  }
+
+  return { fullpath, readme };
+}
