@@ -1,12 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
 
-export function hasPackageJson(projectPath) {
+export function getPackageJson(projectPath) {
   try {
-    fs.readFileSync(path.resolve(projectPath, 'package.json'));
-    return true;
+    const packageJsonPath = path.resolve(projectPath, 'package.json');
+    const json = fs.readFileSync(packageJsonPath).toString();
+    return JSON.parse(json);
   } catch (e) {
-    return false;
+    return null;
   }
 }
 
