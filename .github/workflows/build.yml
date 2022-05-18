@@ -2,6 +2,9 @@ on:
   push:
     branches: [main]
 
+env:
+  MAJOR_VERSION: v1
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -36,7 +39,7 @@ jobs:
 
       - name: Move major tag
         run: |
-          git tag -d v1
-          git push --delete origin v1
-          git tag v1
+          git tag -d $MAJOR_VERSION
+          git push --delete origin $MAJOR_VERSION
+          git tag $MAJOR_VERSION
           git push --tag
