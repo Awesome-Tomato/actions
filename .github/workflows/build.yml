@@ -27,4 +27,4 @@ jobs:
         run: |
           git add ./dist/* -f # gitignore 때문에 무시되는 파일 -f 로 추가 
           git commit -m 'Deploy build output by Github workflow'
-          git push origin HEAD:release --force # git push 리모트 로컬위치:받을위치
+          git merge origin/release HEAD
