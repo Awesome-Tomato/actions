@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import childProcess from 'node:child_process';
 
 export function getPackageJson(projectPath) {
   try {
@@ -12,10 +13,22 @@ export function getPackageJson(projectPath) {
 }
 
 export function runBuildCommandAt(projectPath) {
+  childProcess.execSync(`npm --prefix="${projectPath}" ci`);
+  childProcess.execSync(`npm --prefix="${projectPath}" run build`);
   return projectPath;
 }
 
-export function moveBuildOutputIntoImplementDirectory() {}
+export function moveBuildOutputIntoImplementDirectory(projectPath) {
+  const possibleBuildDirectory = ['build', '.next', 'dist'];
+  const subDirectories = fs.readdirSync(projectPath);
+
+  const buildDirectory = subDirectories.find((dir) =>
+    possibleBuildDirectory.includes(dir)
+  );
+  childProcess.execSync(
+    `mv ${path.resolve(projectPath, buildDirectory, '*')} ${projectPath}`
+  );
+}
 
 export function getReadmeAt(projectPath) {
   const fullpath = path.resolve(projectPath, 'readme.md');

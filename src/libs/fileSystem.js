@@ -37,4 +37,6 @@ export function createDirectory(absolutePath) {
   } catch (e) {}
 }
 
-export function writeFile() {}
+export function writeFile(fullpath, str) {
+  fs.writeFileSync(fullpath, str);
+}
