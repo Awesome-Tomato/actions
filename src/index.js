@@ -43,7 +43,7 @@ function buildThenDeployAllImplement(projectPath) {
     })
     .filter((implement) => implement.packageJson.deploy !== false)
     .forEach((implement) =>
-      moveBuildOutputIntoImplementDirectory(implement.fullpath);
+      moveBuildOutputIntoImplementDirectory(implement.fullpath)
     );
 
   // 배포링크 생성 및 readme 에 적용
