@@ -7,6 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          # 모든 브랜치를 가져오기 위해 0 으로 설정
+          fetch-depth: 0
 
       - uses: actions/setup-node@v3
         with:
@@ -27,4 +30,6 @@ jobs:
         run: |
           git add ./dist/* -f # gitignore 때문에 무시되는 파일 -f 로 추가 
           git commit -m 'Deploy build output by Github workflow'
-          git merge origin/release HEAD
+          git checkout release
+          git merge main
+          git push origin release
