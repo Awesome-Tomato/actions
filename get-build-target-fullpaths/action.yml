@@ -1,5 +1,5 @@
 name: 'get-build-target-fullpaths'
-description: 'Get build target\'s fullpaths'
+description: "Get build target's fullpaths"
 
 runs:
   using: 'node16'
