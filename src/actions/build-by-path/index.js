@@ -1,5 +1,5 @@
 import { runBuildCommandAt } from '../../libs/projectExplorer';
-import core from '@actions/core';
+import * as core from '@actions/core';
 
 run(core.getInput('fullpaths'));
 
