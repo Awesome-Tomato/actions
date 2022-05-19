@@ -1,14 +1,12 @@
-import path from 'node:path';
 import { getReadmeAt } from '../../libs/projectExplorer';
 import * as core from '@actions/core';
 import { readDirectoriesAsFullPath } from '../../libs/fileSystem';
 
-run();
+run(core.getInput('workspace'));
 
-export function run() {
-  const root = path.resolve(__dirname, './');
-  console.log(`Root: ${root}\n`);
-  const subDirectoryPaths = readDirectoriesAsFullPath(root);
+export function run(workspace) {
+  console.log(`Root: ${workspace}\n`);
+  const subDirectoryPaths = readDirectoriesAsFullPath(workspace);
   console.log(`Sub-directories: \n${subDirectoryPaths.join('\n')}\n`);
 
   const validMissionPaths = subDirectoryPaths.filter((projectPath) => {
@@ -22,5 +20,5 @@ export function run() {
   );
 
   console.log(`Loaded projectPaths are \n${projectPaths.join('\n')}\n`);
-  core.setOutput('projectPaths', projectPaths);
+  core.setOutput('projectPaths', JSON.stringify(projectPaths));
 }
