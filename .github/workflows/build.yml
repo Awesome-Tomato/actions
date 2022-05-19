@@ -34,7 +34,7 @@ jobs:
           git add ./dist/* -f # gitignore 때문에 무시되는 파일 -f 로 추가 
           git commit -m 'Deploy build output by Github workflow'
           git checkout release
-          git merge main
+          git merge main --strategy-option theirs
           git push origin release
 
       - name: Move major tag
