@@ -1,0 +1,6 @@
+name: 'get-build-target-fullpaths'
+description: 'Get build target\'s fullpaths'
+
+runs:
+  using: 'node16'
+  main: '../dist/get-build-target-fullpaths.js'
