@@ -7,7 +7,9 @@ run();
 
 export function run() {
   const root = path.resolve(__dirname, './');
+  console.log(`Root: ${root}\n`);
   const subDirectoryPaths = readDirectoriesAsFullPath(root);
+  console.log(`Sub-directories: \n${subDirectoryPaths.join('\n')}\n`);
 
   const validMissionPaths = subDirectoryPaths.filter((projectPath) => {
     const { fullpath } = getReadmeAt(projectPath);
