@@ -1,3 +1,4 @@
+import path from 'node:path';
 import { getReadmeAt } from '../../libs/projectExplorer';
 import core from '@actions/core';
 import { readDirectoriesAsFullPath } from '../../libs/fileSystem';
