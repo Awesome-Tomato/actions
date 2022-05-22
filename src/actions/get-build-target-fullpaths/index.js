@@ -5,6 +5,9 @@ import { readDirectoriesAsFullPath } from '../../libs/fileSystem';
 run(core.getInput('workspace'));
 
 export function run(workspace) {
+  console.log(`Test read context.. ${core.getInput('github')}`);
+  console.log(core.getInput('github').workspace);
+
   console.log(`Root: ${workspace}\n`);
   const subDirectoryPaths = readDirectoriesAsFullPath(workspace);
   console.log(`Sub-directories: \n${subDirectoryPaths.join('\n')}\n`);
