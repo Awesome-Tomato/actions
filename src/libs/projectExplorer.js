@@ -28,6 +28,11 @@ export function moveBuildOutputIntoImplementDirectory(projectPath) {
   const buildDirectory = subDirectories.find((dir) =>
     possibleBuildDirectory.includes(dir)
   );
+  if (!buildDirectory) {
+    console.log('Build directory not found. exit.');
+    return;
+  }
+
   childProcess.execSync(
     `mv ${path.resolve(projectPath, buildDirectory, '*')} ${projectPath}`
   );
