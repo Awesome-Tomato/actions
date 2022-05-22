@@ -14,6 +14,11 @@ function run(fullpaths) {
       return;
     }
 
+    if (packageJson.deploy === false) {
+      console.log('Skip deploy.');
+      return;
+    }
+
     moveBuildOutputIntoImplementDirectory(fullpath);
   };
 
