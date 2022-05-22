@@ -1,0 +1,15 @@
+name: 'add-deploy-path-to-readme-based-on-path'
+description: 'Add deploy url to project readme'
+
+inputs:
+  fullpaths:
+    description: Project path for update readme
+    required: true
+
+  projectBaseUrl:
+    description: Project root url for deploy
+    required: true
+
+runs:
+  using: 'node16'
+  main: '../dist/build-by-path.js'
