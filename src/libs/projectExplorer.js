@@ -13,8 +13,11 @@ export function getPackageJson(projectPath) {
 }
 
 export function runBuildCommandAt(projectPath) {
-  childProcess.execSync(`npm --prefix="${projectPath}" ci`);
-  childProcess.execSync(`npm --prefix="${projectPath}" run build`);
+  let output = childProcess.execSync(`npm --prefix="${projectPath}" ci`);
+  console.log(output);
+
+  output = childProcess.execSync(`npm --prefix="${projectPath}" run build`);
+  console.log(output);
   return projectPath;
 }
 

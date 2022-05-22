@@ -1,0 +1,6 @@
+name: 'build-by-path'
+description: 'Build each paths'
+
+runs:
+  using: 'node16'
+  main: '../dist/build-by-path.js'
