@@ -14,10 +14,10 @@ export function getPackageJson(projectPath) {
 
 export function runBuildCommandAt(projectPath) {
   let output = childProcess.execSync(`npm --prefix="${projectPath}" ci`);
-  console.log(output);
+  console.log(output.toString());
 
   output = childProcess.execSync(`npm --prefix="${projectPath}" run build`);
-  console.log(output);
+  console.log(output.toString());
   return projectPath;
 }
 
@@ -28,6 +28,11 @@ export function moveBuildOutputIntoImplementDirectory(projectPath) {
   const buildDirectory = subDirectories.find((dir) =>
     possibleBuildDirectory.includes(dir)
   );
+  if (!buildDirectory) {
+    console.log('Build directory not found. exit.');
+    return;
+  }
+
   childProcess.execSync(
     `mv ${path.resolve(projectPath, buildDirectory, '*')} ${projectPath}`
   );
