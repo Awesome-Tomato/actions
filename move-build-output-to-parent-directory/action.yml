@@ -1,0 +1,11 @@
+name: 'move-build-output-to-parent-directory'
+description: 'Move build output contents to project directory'
+
+inputs:
+  fullpaths:
+    description: Full-paths for move output contents to project directory
+    required: true
+
+runs:
+  using: 'node16'
+  main: '../dist/move-build-output-to-parent-directory.js'`
