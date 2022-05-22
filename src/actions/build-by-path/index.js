@@ -1,7 +1,7 @@
 import { getPackageJson, runBuildCommandAt } from '../../libs/projectExplorer';
 import * as core from '@actions/core';
 
-run(core.getInput('fullpaths'));
+run(JSON.parse(core.getInput('fullpaths')));
 
 export function run(fullpaths) {
   const buildPath = (fullpath) => {
