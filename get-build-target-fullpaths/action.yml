@@ -1,6 +1,11 @@
 name: 'get-build-target-fullpaths'
 description: "Get build target's fullpaths"
 
+inputs:
+  workspace:
+    description: github.workspace is required
+    required: true
+
 runs:
   using: 'node16'
   main: '../dist/get-build-target-fullpaths.js'
