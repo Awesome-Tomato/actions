@@ -8,4 +8,4 @@ inputs:
 
 runs:
   using: 'node16'
-  main: '../dist/move-build-output-to-parent-directory.js'`
+  main: '../dist/move-build-output-to-parent-directory.js'
