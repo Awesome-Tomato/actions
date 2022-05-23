@@ -13,24 +13,34 @@ function run(fullpaths, PROJECT_BASE_URL) {
     .filter((fullpath, index, paths) => paths.indexOf(fullpath) === index);
 
   projectPaths.forEach((projectPath) => {
-    const implementDirectoryNames = fullpaths
-      .filter((fullpath) => fullpath.include(projectPath))
-      .filter((fullpath) => {
-        const packageJson = getPackageJson(fullpath);
-        if (!packageJson) return true;
-        return packageJson.deploy !== false;
-      })
-      .map((fullpath) => path.basename(fullpath));
-
-    const projectName = path.basename(projectPath);
-    const nameToItem = (name) =>
-      `- [${name}](${PROJECT_BASE_URL}/${projectName}/${name}/index.html)`;
-    const deployList =
-      '\n' + implementDirectoryNames.map(nameToItem).join('\n') + '\n\n';
-
-    const deployListSelectRegex =
-      /(?<=## 배포링크(\n|\r\n))(\n|\r\n)((- .+(\n|\r\n))*)/;
-    const { readme, fullpath: readmePath } = getReadmeAt(projectPath);
-    writeFile(readmePath, readme.replace(deployListSelectRegex, deployList));
+    core.startGroup(projectPath);
+    updateReadme(projectPath);
+    core.endGroup();
   });
+}
+
+function updateReadme(projectPath) {
+  const implementDirectoryNames = fullpaths
+    .filter((fullpath) => fullpath.include(projectPath))
+    .filter((fullpath) => {
+      const packageJson = getPackageJson(fullpath);
+      if (!packageJson) return true;
+      return packageJson.deploy !== false;
+    })
+    .map((fullpath) => path.basename(fullpath));
+
+  console.log(`\nWrite those implements : \n`);
+  console.log(implementDirectoryNames.join('\n') + '\n');
+
+  const projectName = path.basename(projectPath);
+  const nameToItem = (name) =>
+    `- [${name}](${PROJECT_BASE_URL}/${projectName}/${name}/index.html)`;
+  const deployList =
+    '\n' + implementDirectoryNames.map(nameToItem).join('\n') + '\n\n';
+
+  const deployListSelectRegex =
+    /(?<=## 배포링크(\n|\r\n))(\n|\r\n)((- .+(\n|\r\n))*)/;
+  const { readme, fullpath: readmePath } = getReadmeAt(projectPath);
+  console.log(`\nReadme: ${readme}\n\n`);
+  writeFile(readmePath, readme.replace(deployListSelectRegex, deployList));
 }
