@@ -15,14 +15,16 @@ function run(fullpaths, PROJECT_BASE_URL) {
 
   projectPaths.forEach((projectPath) => {
     core.startGroup(projectPath);
-    updateReadme(projectPath, PROJECT_BASE_URL);
+    const implementPaths = fullpaths.filter((implementPath) =>
+      implementPath.include(projectPath)
+    );
+    updateReadme(projectPath, implementPaths, PROJECT_BASE_URL);
     core.endGroup();
   });
 }
 
-function updateReadme(projectPath, PROJECT_BASE_URL) {
-  const implementDirectoryNames = fullpaths
-    .filter((fullpath) => fullpath.include(projectPath))
+function updateReadme(projectPath, implementPaths, PROJECT_BASE_URL) {
+  const implementDirectoryNames = implementPaths
     .filter((fullpath) => {
       const packageJson = getPackageJson(fullpath);
       if (!packageJson) return true;
