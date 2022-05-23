@@ -8,18 +8,19 @@ run(JSON.parse(core.getInput('fullpaths')), core.getInput('projectBaseUrl'));
 // 함수를 좀 더 잘게 쪼개는 리팩토링이 필요함
 // 스크립팅 느낌이 강하다
 function run(fullpaths, PROJECT_BASE_URL) {
+  console.log(`Deploy URL's base will ${PROJECT_BASE_URL}`);
   const projectPaths = fullpaths
     .map((fullpath) => path.resolve(fullpath, '../'))
     .filter((fullpath, index, paths) => paths.indexOf(fullpath) === index);
 
   projectPaths.forEach((projectPath) => {
     core.startGroup(projectPath);
-    updateReadme(projectPath);
+    updateReadme(projectPath, PROJECT_BASE_URL);
     core.endGroup();
   });
 }
 
-function updateReadme(projectPath) {
+function updateReadme(projectPath, PROJECT_BASE_URL) {
   const implementDirectoryNames = fullpaths
     .filter((fullpath) => fullpath.include(projectPath))
     .filter((fullpath) => {
