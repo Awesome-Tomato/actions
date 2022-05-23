@@ -14,12 +14,12 @@ function run(fullpaths, PROJECT_BASE_URL) {
 
   projectPaths.forEach((projectPath) => {
     core.startGroup(projectPath);
-    updateReadme(projectPath);
+    updateReadme(projectPath, PROJECT_BASE_URL);
     core.endGroup();
   });
 }
 
-function updateReadme(projectPath) {
+function updateReadme(projectPath, PROJECT_BASE_URL) {
   const implementDirectoryNames = fullpaths
     .filter((fullpath) => fullpath.include(projectPath))
     .filter((fullpath) => {
