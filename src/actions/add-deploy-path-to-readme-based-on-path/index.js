@@ -16,7 +16,7 @@ function run(fullpaths, PROJECT_BASE_URL) {
   projectPaths.forEach((projectPath) => {
     core.startGroup(projectPath);
     const implementPaths = fullpaths.filter((implementPath) =>
-      implementPath.include(projectPath)
+      implementPath.includes(projectPath)
     );
     updateReadme(projectPath, implementPaths, PROJECT_BASE_URL);
     core.endGroup();
