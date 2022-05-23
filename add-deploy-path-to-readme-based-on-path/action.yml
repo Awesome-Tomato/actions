@@ -12,4 +12,4 @@ inputs:
 
 runs:
   using: 'node16'
-  main: '../dist/build-by-path.js'
+  main: '../dist/add-deploy-path-to-readme-based-on-path.js'
