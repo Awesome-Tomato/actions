@@ -13,11 +13,9 @@ export function getPackageJson(projectPath) {
 }
 
 export function runBuildCommandAt(projectPath) {
-  let output = childProcess.execSync(`npm --prefix="${projectPath}" ci`);
-  console.log(output.toString());
-
-  output = childProcess.execSync(`npm --prefix="${projectPath}" run build`);
-  console.log(output.toString());
+  childProcess.execSync(`npm --prefix="${projectPath}" ci`, { stdio: 'inherit' });
+  childProcess.execSync(`npm --prefix="${projectPath}" run build`, { stdio: 'inherit' });
+  
   return projectPath;
 }
 
