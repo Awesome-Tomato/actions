@@ -39,8 +39,8 @@ export function moveBuildOutputIntoImplementDirectory(projectPath) {
 }
 
 export function getReadmeAt(projectPath) {
+  const fullpath = path.resolve(projectPath, 'readme.md');
   try {
-    const fullpath = path.resolve(projectPath, 'readme.md');
     return {
       readme: fs.readFileSync(fullpath).toString(),
       fullpath
