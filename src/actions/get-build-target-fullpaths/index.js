@@ -13,7 +13,11 @@ export function run(workspace) {
     const { fullpath } = getReadmeAt(projectPath);
     return Boolean(fullpath);
   });
-
+  
+  core.startGroup('Directories that has README.md');
+  console.log(validMissionPaths.join('\n'));
+  core.endGroup();
+  
   const projectPaths = [];
   validMissionPaths.forEach((path) =>
     projectPaths.push(...readDirectoriesAsFullPath(path))
