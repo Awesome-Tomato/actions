@@ -9,12 +9,11 @@ export function run(workspace) {
   const subDirectoryPaths = readDirectoriesAsFullPath(workspace);
   console.log(`Sub-directories: \n${subDirectoryPaths.join('\n')}\n`);
 
+  core.startGroup('Directories that has README.md');
   const validMissionPaths = subDirectoryPaths.filter((projectPath) => {
     const { fullpath } = getReadmeAt(projectPath);
     return Boolean(fullpath);
   });
-  
-  core.startGroup('Directories that has README.md');
   console.log(validMissionPaths.join('\n'));
   core.endGroup();
   
