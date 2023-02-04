@@ -39,13 +39,17 @@ export function moveBuildOutputIntoImplementDirectory(projectPath) {
 }
 
 export function getReadmeAt(projectPath) {
-  const fullpath = path.resolve(projectPath, 'readme.md');
-  let readme;
   try {
-    readme = fs.readFileSync(fullpath).toString();
+    const fullpath = path.resolve(projectPath, 'readme.md');
+    return {
+      readme: fs.readFileSync(fullpath).toString(),
+      fullpath
+    };
   } catch (e) {
+    console.log('Failed to find README.md file!');
+    console.log('Path: ', fullpath);
+    console.log(e);
+    console.log('-----');
     return {};
   }
-
-  return { fullpath, readme };
 }
