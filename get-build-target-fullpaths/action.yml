@@ -6,6 +6,10 @@ inputs:
     description: github.workspace is required
     required: true
 
+outputs:
+  projectPaths:
+    description: Full-paths of each project-implements
+
 runs:
   using: 'node16'
   main: '../dist/get-build-target-fullpaths.js'
