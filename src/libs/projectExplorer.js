@@ -32,7 +32,8 @@ export function moveBuildOutputIntoImplementDirectory(projectPath) {
   }
 
   childProcess.execSync(
-    `mv ${path.resolve(projectPath, buildDirectory, '*')} ${projectPath}`
+    `mv -v ${path.resolve(projectPath, buildDirectory, '*')} ${projectPath}`,
+    { stdio: 'inherit' },
   );
 }
 
