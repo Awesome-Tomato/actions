@@ -15,9 +15,8 @@ export function getPackageJson(projectPath) {
 export function runBuildCommandAt(projectPath, env = {}) {
   childProcess.execSync(`npm --prefix="${projectPath}" ci`, { stdio: 'inherit' });
 
-  const exportVariables = Object.entries(env).map(([key, value]) => `export ${key}=${value};`);
-  childProcess.execSync(exportVariables.join('') || '#');
-  childProcess.execSync(`npm --prefix="${projectPath}" run build`, { stdio: 'inherit' });
+  const envVariables = Object.entries(env).map(([key, value]) => `${key}=${value} `);
+  childProcess.execSync(`${envVariables.join('')}npm --prefix="${projectPath}" run build`, { stdio: 'inherit' });
   
   return projectPath;
 }
