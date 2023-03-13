@@ -5,6 +5,8 @@ inputs:
   fullpaths:
     description: Full-paths for build
     required: true
+  build-env-yaml:
+    description: Provide environment for build
 
 runs:
   using: 'node16'
