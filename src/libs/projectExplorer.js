@@ -16,7 +16,7 @@ export function runBuildCommandAt(projectPath, env = {}) {
   childProcess.execSync(`npm --prefix="${projectPath}" ci`, { stdio: 'inherit' });
 
   const exportVariables = Object.entries(env).map(([key, value]) => `export ${key}=${value};`);
-  childProcess.execSync(exportVariables);
+  childProcess.execSync(exportVariables.join('') || '#');
   childProcess.execSync(`npm --prefix="${projectPath}" run build`, { stdio: 'inherit' });
   
   return projectPath;
